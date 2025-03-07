@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:gal/gal.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -230,6 +231,9 @@ class _CameraScreenState extends State<CameraScreen> {
 
                 // Take the picture
                 final image = await _controller.takePicture();
+
+                // Save the image to the gallery using gal package
+                await Gal.putImage(image.path);
 
                 if (!mounted) return;
 
