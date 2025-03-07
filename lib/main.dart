@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:gal/gal.dart';
 
@@ -115,7 +113,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// Add a new screen to view images in full screen
 class FullScreenImageView extends StatelessWidget {
   final String imagePath;
 
@@ -129,11 +126,35 @@ class FullScreenImageView extends StatelessWidget {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         title: const Text('Photo View'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
       ),
       body: Center(
-        child: Image.file(
-          File(imagePath),
-          fit: BoxFit.contain,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white, // กำหนดกรอบของภาพเป็นสีขาว
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2), // เงาของกรอบ
+                spreadRadius: 5,
+                blurRadius: 0,
+                offset: Offset(0, 3), // กำหนดทิศทางเงา
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+              top: 20,
+              bottom: 40), // เพิ่มระยะห่างระหว่างกรอบกับภาพ
+          child: Image.file(
+            File(imagePath),
+            fit: BoxFit.contain,
+          ),
         ),
       ),
     );
